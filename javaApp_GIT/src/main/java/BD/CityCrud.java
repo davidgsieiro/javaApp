@@ -27,4 +27,23 @@ public class CityCrud {
         }
         return listado;
     }
+    
+    public static boolean inserta(City c){
+        Connection conexion=BD.getConexion();
+        boolean exito=false;
+        String sql="insert into city (name,countrycode,district,population) values (?,?,?,?);";
+        int total=-1;
+        try{
+            PreparedStatement ps=conexion.prepareStatement(sql);
+            ps.setString(1,c.getName());
+            ps.setString(2,c.getCountryCode());
+            ps.setString(3, c.getDistrict());
+            ps.setLong(3,c.getPopulation());
+            total=ps.executeUpdate();
+            if(total==1)exito=true;
+        }catch(SQLException e){
+            
+        }
+        return exito;
+    }
 }
